@@ -2,6 +2,7 @@ package com.pika.mailservice.dto;
 
 import lombok.Data;
 
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -16,6 +17,8 @@ public class StoryDto {
     private String title;
 
     private String link;
+
+    private ZonedDateTime zonedDateTime;
 
     private List<CommentDto> comments;
 }

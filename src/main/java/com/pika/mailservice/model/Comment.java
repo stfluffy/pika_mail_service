@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.time.ZonedDateTime;
 
 /**
  * @author Modenov D.A
@@ -62,4 +63,10 @@ public class Comment {
      */
     @Column(name = "text")
     private String text;
+
+    /**
+     * Время парсинга комментария.
+     */
+    @Column(name = "date_time")
+    private ZonedDateTime zonedDateTime;
 }

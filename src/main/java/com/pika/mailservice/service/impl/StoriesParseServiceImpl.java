@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -98,6 +99,8 @@ public class StoriesParseServiceImpl implements StoriesParseService {
         story.setTitle(element.text());
 
         story.setLink(element.select(".story__title-link").attr("href"));
+
+        story.setZonedDateTime(ZonedDateTime.now());
 
         story.setComments(commentService.parseComments(story.getLink(), commentsLimit));
 
