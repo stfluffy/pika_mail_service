@@ -11,6 +11,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
+import java.time.ZonedDateTime;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -106,6 +107,8 @@ public class CommentParseServiceImpl implements CommentParseService {
                 .attr("href"));
 
         comment.setText(element.parent().parent().select(".comment__content").text());
+
+        comment.setZonedDateTime(ZonedDateTime.now());
 
         return comment;
     }

@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+import java.time.ZonedDateTime;
+
 /**
  * @author Modenov D.A
  */
@@ -24,4 +26,6 @@ public class CommentDto {
     private String link;
 
     private String text;
+
+    private ZonedDateTime zonedDateTime;
 }

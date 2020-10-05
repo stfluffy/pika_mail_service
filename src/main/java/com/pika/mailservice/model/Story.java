@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 /**
@@ -40,6 +41,12 @@ public class Story {
      */
     @Column(name = "link")
     private String link;
+
+    /**
+     * Время парсинга комментария.
+     */
+    @Column(name = "date_time")
+    private ZonedDateTime zonedDateTime;
 
     /**
      * Комментарии к истории.
