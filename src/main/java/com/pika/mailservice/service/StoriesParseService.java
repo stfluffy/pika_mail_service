@@ -10,5 +10,10 @@ import java.util.List;
 
 public interface StoriesParseService {
 
+    /**
+     * Получение историй с комментариями, после парсинга страницы.
+     *
+     * @return список историй.
+     */
     List<StoryDto> parseStories();
 }

@@ -55,7 +55,8 @@ public class StoriesParseServiceImpl implements StoriesParseService {
     }
 
     /**
-     * Получение элемента с разделом историй и выделение элементов отражающих заголовок.
+     * Получение элементов из раздела "истории",
+     * и выделение элементов отражающих заголовок.
      *
      * @param document полученный после получения страницы
      * @return отсортированные элементы
@@ -66,9 +67,12 @@ public class StoriesParseServiceImpl implements StoriesParseService {
     }
 
     /**
-     * ?????
-     * @param elements --
-     * @return --
+     * Получение списка историй.
+     * <p>
+     * Так же устанавливается лимит на количество историй.
+     *
+     * @param elements отсортированные элементы через метод {@link StoriesParseServiceImpl#getStoriesElements}.
+     * @return список историй после парсинга.
      */
     private List<StoryDto> getStories(Elements elements) {
         return elements.stream()
@@ -78,10 +82,15 @@ public class StoriesParseServiceImpl implements StoriesParseService {
     }
 
     /**
-     * ????
+     * Создание истории.
+     * <p>
+     * Метод парсит элементы связанные с историей,
+     * а затем получает комментарии к этой истории с помощью парсера комментариев.
+     * <p>
+     * Так же устанавливается лимит на количество комментариев.
      *
-     * @param element --
-     * @return --
+     * @param element отсортированный элемент через метод {@link StoriesParseServiceImpl#getStoriesElements}.
+     * @return возвращает созданную историю.
      */
     private StoryDto parseStory(Element element) {
         StoryDto story = new StoryDto();

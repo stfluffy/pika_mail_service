@@ -46,5 +46,4 @@ public class Story {
      */
     @OneToMany(mappedBy = "story", cascade = CascadeType.ALL)
     private List<Comment> comments;
-
 }

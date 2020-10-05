@@ -18,5 +18,4 @@ public class StoryDto {
     private String link;
 
     private List<CommentDto> comments;
-
 }

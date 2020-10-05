@@ -1,7 +1,6 @@
 package com.pika.mailservice.service;
 
 import com.pika.mailservice.dto.CommentDto;
-import org.jsoup.nodes.Document;
 
 import java.util.List;
 
@@ -12,10 +11,11 @@ import java.util.List;
 public interface CommentParseService {
 
     /**
+     * Парсинг комментариев.
      *
-     * @param url
-     * @param limit
-     * @return
+     * @param url   ссылка на страницу с комментариями.
+     * @param limit лимит на количество комментариев.
+     * @return список комментариев после парсинга.
      */
     List<CommentDto> parseComments(String url, Integer limit);
 }

@@ -44,7 +44,8 @@ public class CommentParseServiceImpl implements CommentParseService {
     }
 
     /**
-     * Получение элемента с разделом комментариев и выделение элементов отражающих рейтинг.
+     * Получение элементов из раздела "комментарии",
+     * и выделение элементов отражающих рейтинг комментария.
      *
      * @param document полученный после получения страницы.
      * @return отсортированные элементы.
@@ -55,21 +56,23 @@ public class CommentParseServiceImpl implements CommentParseService {
     }
 
     /**
-     * ????????
-     * @param elements --
-     * @return --
+     * Получение комментариев.
+     *
+     * @param elements отсортированные элементы через метод {@link CommentParseServiceImpl#getCommentRatingElements}.
+     * @return список комментариев конвертированных в CommentDto.
      */
     private List<CommentDto> getComments(Elements elements) {
         return elements.stream()
-                .map(CommentParseServiceImpl::parseComment)
+                .map(this::parseComment)
                 .collect(Collectors.toList());
     }
 
     /**
-     * ????
-     * @param comments --
-     * @param commentLimit --
-     * @return --
+     * Сортировка комментариев по рейтингу.
+     *
+     * @param comments     список комментариев.
+     * @param commentLimit лимит на количество комментариев, после сортировки.
+     * @return список сортированных комментариев
      */
     private List<CommentDto> sortCommentByRating(List<CommentDto> comments, Integer commentLimit) {
         return comments.stream()
@@ -79,12 +82,12 @@ public class CommentParseServiceImpl implements CommentParseService {
     }
 
     /**
-     * Создание комментария после сортировки методом getCommentRatingElements.
+     * Создание комментария.
      *
-     * @param element отсортированный элемент.
+     * @param element отсортированный элемент через метод {@link CommentParseServiceImpl#getCommentRatingElements}.
      * @return возвращает созданный комментарий.
      */
-    private static CommentDto parseComment(Element element) {
+    private CommentDto parseComment(Element element) {
         CommentDto comment = new CommentDto();
 
         if (NumberUtils.isCreatable(element.text())) {
