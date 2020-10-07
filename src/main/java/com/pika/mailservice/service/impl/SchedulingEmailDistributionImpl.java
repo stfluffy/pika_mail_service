@@ -39,12 +39,12 @@ public class SchedulingEmailDistributionImpl {
      * Создание задачи выполняющей в течение всего времени работы программы отправку почту,
      * по установленному графику в application.properties
      */
-//    @Scheduled(cron = "${scheduling.email.distribution}")
-//    public void sendMails() {
-//        log.info("Запуск email рассылки в " + ZonedDateTime.now());
-//        buildTasks();
-//        log.info("Остановка email рассылки в " + ZonedDateTime.now());
-//    }
+    @Scheduled(cron = "${scheduling.email.distribution}")
+    public void sendMails() {
+        log.info("Запуск email рассылки в " + ZonedDateTime.now());
+        buildTasks();
+        log.info("Остановка email рассылки в " + ZonedDateTime.now());
+    }
 
     /**
      * Конструирование задачи для дальнейшего выполнения
