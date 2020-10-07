@@ -1,6 +1,7 @@
 package com.pika.mailservice.service;
 
-import com.pika.mailservice.dto.CommentDto;
+import com.pika.mailservice.model.Comment;
+import com.pika.mailservice.model.Story;
 
 import java.util.List;
 
@@ -13,9 +14,10 @@ public interface CommentParseService {
     /**
      * Парсинг комментариев.
      *
-     * @param url   ссылка на страницу с комментариями.
-     * @param limit лимит на количество комментариев.
+     * @param story  ?????.
+     * @param commentLimit лимит на количество комментариев.
      * @return список комментариев после парсинга.
      */
-    List<CommentDto> parseComments(String url, Integer limit);
+    List<Comment> parseComments(Story story, Integer commentLimit);
+
 }

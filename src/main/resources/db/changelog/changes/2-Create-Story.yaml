@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2020-10-06-02
+      comment:  Create Story
+      author: Modenov Danil
+      changes:
+        - createTable:
+            tableName: story
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    primaryKeyName: pk_story
+                    nullable: false
+              - column:
+                  name: title
+                  type: VARCHAR(250)
+              - column:
+                  name: link
+                  type: VARCHAR(250)
+              - column:
+                  name: parse_date
+                  type: TIMESTAMP

@@ -24,9 +24,11 @@ public class GetPageServiceImpl implements GetPageService {
     public Document getDocumentFromUrl(String url) {
         try {
             return Jsoup.connect(url).timeout(timeout).get();
-        } catch (Exception exception) {
-            log.error("Ошибка подключения по url: ", exception);
+        }
+        catch (Exception exception) {
+            log.error("Ошибка подключения по url: " + url, exception);
             return null;
         }
     }
+
 }

@@ -1,7 +1,7 @@
 package com.pika.mailservice.service.impl;
 
-import com.pika.mailservice.dto.StoryDto;
-import com.pika.mailservice.service.CommentParseService;
+import com.pika.mailservice.model.Story;
+import com.pika.mailservice.repository.StoryRepository;
 import com.pika.mailservice.service.GetPageService;
 import com.pika.mailservice.service.StoriesParseService;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class StoriesParseServiceImpl implements StoriesParseService {
 
     private final GetPageService pageService;
 
-    private final CommentParseService commentService;
+    private final StoryRepository storyRepository;
 
     @Value("${page.pikabu.best.url}")
     private String pikabuBestUrl;
@@ -39,11 +39,8 @@ public class StoriesParseServiceImpl implements StoriesParseService {
     @Value("${parse.page.stories.limit}")
     private Integer storiesLimit;
 
-    @Value("${parse.page.comments.limit}")
-    private Integer commentsLimit;
-
     @Override
-    public List<StoryDto> parseStories() {
+    public List<Story> parseStories() {
         Document document = pageService.getDocumentFromUrl(pikabuBestUrl);
 
         if (Objects.isNull(document)) {
@@ -52,7 +49,13 @@ public class StoriesParseServiceImpl implements StoriesParseService {
 
         Elements elements = getStoriesElements(document);
 
-        return getStories(elements);
+        List<Story> stories = getStories(elements);
+
+        return saveToDb(stories);
+    }
+
+    private List<Story> saveToDb(List<Story> stories) {
+        return storyRepository.saveAll(stories);
     }
 
     /**
@@ -75,7 +78,7 @@ public class StoriesParseServiceImpl implements StoriesParseService {
      * @param elements отсортированные элементы через метод {@link StoriesParseServiceImpl#getStoriesElements}.
      * @return список историй после парсинга.
      */
-    private List<StoryDto> getStories(Elements elements) {
+    private List<Story> getStories(Elements elements) {
         return elements.stream()
                 .map(this::parseStory)
                 .limit(storiesLimit)
@@ -93,17 +96,16 @@ public class StoriesParseServiceImpl implements StoriesParseService {
      * @param element отсортированный элемент через метод {@link StoriesParseServiceImpl#getStoriesElements}.
      * @return возвращает созданную историю.
      */
-    private StoryDto parseStory(Element element) {
-        StoryDto story = new StoryDto();
+    private Story parseStory(Element element) {
+        Story story = new Story();
 
         story.setTitle(element.text());
 
         story.setLink(element.select(".story__title-link").attr("href"));
 
-        story.setZonedDateTime(ZonedDateTime.now());
-
-        story.setComments(commentService.parseComments(story.getLink(), commentsLimit));
+        story.setParseDate(ZonedDateTime.now());
 
         return story;
     }
+
 }

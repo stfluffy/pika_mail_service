@@ -45,12 +45,13 @@ public class Story {
     /**
      * Время парсинга комментария.
      */
-    @Column(name = "date_time")
-    private ZonedDateTime zonedDateTime;
+    @Column(name = "parse_date")
+    private ZonedDateTime parseDate;
 
     /**
      * Комментарии к истории.
      */
     @OneToMany(mappedBy = "story", cascade = CascadeType.ALL)
     private List<Comment> comments;
+
 }

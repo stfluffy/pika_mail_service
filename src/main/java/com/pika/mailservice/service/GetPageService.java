@@ -15,4 +15,5 @@ public interface GetPageService {
      * @return документ с элементами страницы
      */
     Document getDocumentFromUrl(String url);
+
 }

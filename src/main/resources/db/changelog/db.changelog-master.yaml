@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/changes/1-Create-Subscriber.yaml
+  - include:
+      file: db/changelog/changes/2-Create-Story.yaml
+  - include:
+      file: db/changelog/changes/3-Create-Comment.yaml
+  - include:
+      file: db/changelog/changes/4-Create-Story-Comment-Relation.yaml

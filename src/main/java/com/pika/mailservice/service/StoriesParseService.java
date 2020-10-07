@@ -1,6 +1,6 @@
 package com.pika.mailservice.service;
 
-import com.pika.mailservice.dto.StoryDto;
+import com.pika.mailservice.model.Story;
 
 import java.util.List;
 
@@ -15,5 +15,6 @@ public interface StoriesParseService {
      *
      * @return список историй.
      */
-    List<StoryDto> parseStories();
+    List<Story> parseStories();
+
 }
