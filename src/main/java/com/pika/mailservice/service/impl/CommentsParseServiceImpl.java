@@ -3,7 +3,7 @@ package com.pika.mailservice.service.impl;
 import com.pika.mailservice.model.Comment;
 import com.pika.mailservice.model.Story;
 import com.pika.mailservice.repository.CommentRepository;
-import com.pika.mailservice.service.CommentParseService;
+import com.pika.mailservice.service.CommentsParseService;
 import com.pika.mailservice.service.GetPageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Log4j2
-public class CommentParseServiceImpl implements CommentParseService {
+public class CommentsParseServiceImpl implements CommentsParseService {
 
     private final GetPageService pageService;
 
@@ -71,7 +71,7 @@ public class CommentParseServiceImpl implements CommentParseService {
     /**
      * Получение комментариев.
      *
-     * @param elements отсортированные элементы через метод {@link CommentParseServiceImpl#getCommentRatingElements}.
+     * @param elements отсортированные элементы через метод {@link CommentsParseServiceImpl#getCommentRatingElements}.
      * @return список комментариев конвертированных в CommentDto.
      */
     private List<Comment> getComments(Elements elements, Story story) {
@@ -97,7 +97,7 @@ public class CommentParseServiceImpl implements CommentParseService {
     /**
      * Создание комментария.
      *
-     * @param element отсортированный элемент через метод {@link CommentParseServiceImpl#getCommentRatingElements}.
+     * @param element отсортированный элемент через метод {@link CommentsParseServiceImpl#getCommentRatingElements}.
      * @return возвращает созданный комментарий.
      */
     private Comment parseComment(Element element, Story story) {

@@ -9,7 +9,7 @@ import java.util.List;
  * @author Modenov D.A
  */
 
-public interface CommentParseService {
+public interface CommentsParseService {
 
     /**
      * Парсинг комментариев.
