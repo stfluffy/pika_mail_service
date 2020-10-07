@@ -54,6 +54,12 @@ public class StoriesParseServiceImpl implements StoriesParseService {
         return saveToDb(stories);
     }
 
+    /**
+     * Сохранение историй в бд.
+     *
+     * @param stories для сохранения.
+     * @return истории после загрузки в бд.
+     */
     private List<Story> saveToDb(List<Story> stories) {
         return storyRepository.saveAll(stories);
     }
@@ -62,8 +68,8 @@ public class StoriesParseServiceImpl implements StoriesParseService {
      * Получение элементов из раздела "истории",
      * и выделение элементов отражающих заголовок.
      *
-     * @param document полученный после получения страницы
-     * @return отсортированные элементы
+     * @param document полученный после получения страницы.
+     * @return отсортированные элементы.
      */
     private Elements getStoriesElements(Document document) {
         return document.select(".stories-feed__container")
@@ -88,10 +94,8 @@ public class StoriesParseServiceImpl implements StoriesParseService {
     /**
      * Создание истории.
      * <p>
-     * Метод парсит элементы связанные с историей,
-     * а затем получает комментарии к этой истории с помощью парсера комментариев.
+     * Метод парсит элементы связанные с историей.
      * <p>
-     * Так же устанавливается лимит на количество комментариев.
      *
      * @param element отсортированный элемент через метод {@link StoriesParseServiceImpl#getStoriesElements}.
      * @return возвращает созданную историю.

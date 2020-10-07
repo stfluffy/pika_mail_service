@@ -34,10 +34,6 @@ public class SubscribeRestController {
 
     private final SubscriberService subscriberService;
 
-    /**
-     *
-     * @return
-     */
     @ApiOperation(value = "Поиск подписчика по id")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Пользователь найден"),
@@ -51,10 +47,6 @@ public class SubscribeRestController {
         return subscriber != null ? ResponseEntity.ok(subscriber) : ResponseEntity.notFound().build();
     }
 
-    /**
-     *
-     * @return
-     */
     @ApiOperation(value = "Список подписчиков получающих рассылку")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Пользователи найдены"),
@@ -68,10 +60,6 @@ public class SubscribeRestController {
         return subscribers != null ? ResponseEntity.ok(subscribers) : ResponseEntity.notFound().build();
     }
 
-    /**
-     *
-     * @return
-     */
     @ApiOperation(value = "Список всех подписчиков")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Пользователи найдены"),
@@ -85,12 +73,6 @@ public class SubscribeRestController {
         return subscribers != null ? ResponseEntity.ok(subscribers) : ResponseEntity.notFound().build();
     }
 
-    /**
-     *
-     * @param subscribeDto
-     * @param bindingResult
-     * @return
-     */
     @ApiOperation(value = "Подписка на рассылку")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Пользователь обновлен"),
@@ -108,7 +90,7 @@ public class SubscribeRestController {
         }
 
         if (subscriberService.checkEmail(subscribeDto.getEmail())) {
-            ResponseEntity.badRequest().body("Subscriber exist");
+            return ResponseEntity.badRequest().body("Subscriber exist");
         }
 
         Subscriber subscriber = subscriberService.subscribe(subscribeDto);
@@ -116,11 +98,6 @@ public class SubscribeRestController {
         return subscriber != null ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 
-    /**
-     *
-     * @param email
-     * @return
-     */
     @ApiOperation(value = "Отписка от рассылки")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Успешно"),

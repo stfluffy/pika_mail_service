@@ -9,7 +9,6 @@ import com.pika.mailservice.service.SubscriberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -37,17 +36,21 @@ public class SchedulingEmailDistributionImpl {
     private Integer commentLimit;
 
     /**
-     *
+     * Создание задачи выполняющей в течение всего времени работы программы отправку почту,
+     * по установленному графику в application.properties
      */
-    @Scheduled(cron = "${scheduling.email.distribution}")
-    public void sendMails() {
-        log.info("Запуск email рассылки в " + ZonedDateTime.now());
-        buildTasks();
-        log.info("Остановка email рассылки в " + ZonedDateTime.now());
-    }
+//    @Scheduled(cron = "${scheduling.email.distribution}")
+//    public void sendMails() {
+//        log.info("Запуск email рассылки в " + ZonedDateTime.now());
+//        buildTasks();
+//        log.info("Остановка email рассылки в " + ZonedDateTime.now());
+//    }
 
     /**
-     *
+     * Конструирование задачи для дальнейшего выполнения
+     * <p>
+     * Происходит загрузка всех подписчиков для рассылки, получение историй,
+     * и отправка на почту.
      */
     private void buildTasks() {
         List<Subscriber> subscribers = subscriberService.getActiveSubscribers();
@@ -56,8 +59,11 @@ public class SchedulingEmailDistributionImpl {
     }
 
     /**
+     * Подготовка историй для задачи.
+     * <p>
+     * Парсинг последних историй и комментариев.
      *
-     * @return
+     * @return список историй с комментариями.
      */
     private List<Story> prepareStories() {
         List<Story> stories = storiesParseService.parseStories();

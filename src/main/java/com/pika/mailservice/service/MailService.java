@@ -12,10 +12,11 @@ import java.util.List;
 public interface MailService {
 
     /**
+     * Асинхронно отправляет почту.
      *
-     * @param stories
-     * @param subscribers
-     * @param subject
+     * @param stories     список историй для отправки.
+     * @param subscribers список подписчиков.
+     * @param subject     тема сообщения.
      */
     void commentsMailDelivery(List<Story> stories, List<Subscriber> subscribers, String subject);
 
