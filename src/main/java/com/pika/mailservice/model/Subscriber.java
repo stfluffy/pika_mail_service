@@ -1,5 +1,6 @@
 package com.pika.mailservice.model;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -24,6 +25,7 @@ public class Subscriber {
     /**
      * Идентификатор подписчика.
      */
+    @Schema(description = "Идентификатор")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -32,6 +34,7 @@ public class Subscriber {
     /**
      * Имя подписчика.
      */
+    @Schema(description = "Имя")
     @Column(name = "name")
     @NotNull
     private String name;
@@ -39,6 +42,7 @@ public class Subscriber {
     /**
      * Электронная почта подписчика.
      */
+    @Schema(description = "Почта")
     @Column(name = "email", unique = true)
     @Email
     private String email;
@@ -46,12 +50,14 @@ public class Subscriber {
     /**
      * Время создания подписки.
      */
+    @Schema(description = "Дата создания подписки")
     @Column(name = "subscription_date")
     private ZonedDateTime subscriptionDate;
 
     /**
      * Активна ли подписка на рассылку.
      */
+    @Schema(description = "Активна ли подписка на рассылку")
     @Column(name = "active")
     private boolean active;
 

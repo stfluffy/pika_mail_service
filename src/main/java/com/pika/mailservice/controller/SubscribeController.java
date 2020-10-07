@@ -41,7 +41,7 @@ public class SubscribeController {
             return "subscribeView";
         }
 
-        subscriberService.subscribeToEmail(subscribeDto);
+        subscriberService.subscribe(subscribeDto);
 
         model.addAttribute("error", "");
 
