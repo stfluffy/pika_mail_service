@@ -9,6 +9,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -54,4 +55,8 @@ public class SubscriberServiceImpl implements SubscriberService {
         return subscriberRepository.existsByEmail(email);
     }
 
+    @Override
+    public List<Subscriber> getActiveSubscribers() {
+        return subscriberRepository.findByActive(Boolean.TRUE);
+    }
 }
