@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="#{unsubscribe.page.title}"></title>
+    <link href="http://cdn.jsdelivr.net/npm/fomantic-ui@2.8.7/dist/semantic.min.css" rel="stylesheet" type="text/css">
+
+    <style>
+        .main.container {
+            margin-top: 20em;
+        }
+
+        .ui.segment {
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+
+        .ui.container {
+            margin-bottom: 1em;
+            width: 50%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="ui main container">
+
+    <div class="ui container">
+        <h4 class="ui center aligned header" th:text="#{unsubscribe.page.header}"></h4>
+    </div>
+
+    <div class="ui container">
+
+        <div class="ui error message" th:if="${!error?.isEmpty()}">
+            <div class="header" th:text="#{unsubscribe.page.error}"></div>
+            <p th:text="${error}"></p>
+        </div>
+
+
+        <div class="ui segment">
+
+            <form method="post" th:action="@{/unsubscribe/confirm}" class="ui form">
+                <div class="field">
+                    <label th:text="#{unsubscribe.page.email.input}"></label>
+                    <input type="text" name="email" th:placeholder="#{unsubscribe.page.email.placeholder}">
+                </div>
+                <button class="ui button" type="submit" th:text="#{unsubscribe.page.unsubscribe.button}"></button>
+            </form>
+
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+
+${AnsiColor.BRIGHT_RED} _|      _|  _|_|_|
+${AnsiColor.BRIGHT_CYAN} _|_|  _|_|  _|    _|
+${AnsiColor.BRIGHT_YELLOW} _|  _|  _|  _|    _|
+${AnsiColor.BRIGHT_GREEN} _|      _|  _|    _|
+${AnsiColor.BRIGHT_MAGENTA} _|      _|  _|_|_|
