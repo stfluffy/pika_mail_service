@@ -52,6 +52,12 @@ public class CommentsParseServiceImpl implements CommentsParseService {
         return saveToDb(sortCommentByRating(comments, commentLimit));
     }
 
+    /**
+     * Сохранение комментариев в базу данных.
+     *
+     * @param comments для сохранения.
+     * @return список комментариев полученных после сохранения.
+     */
     private List<Comment> saveToDb(List<Comment> comments) {
         return commentRepository.saveAll(comments);
     }
@@ -72,7 +78,7 @@ public class CommentsParseServiceImpl implements CommentsParseService {
      * Получение комментариев.
      *
      * @param elements отсортированные элементы через метод {@link CommentsParseServiceImpl#getCommentRatingElements}.
-     * @return список комментариев конвертированных в CommentDto.
+     * @return список комментариев конвертированных в Comment.
      */
     private List<Comment> getComments(Elements elements, Story story) {
         return elements.stream()
@@ -96,6 +102,8 @@ public class CommentsParseServiceImpl implements CommentsParseService {
 
     /**
      * Создание комментария.
+     * <p>
+     * Так же идет привязка к истории, от куда взяты комментарии.
      *
      * @param element отсортированный элемент через метод {@link CommentsParseServiceImpl#getCommentRatingElements}.
      * @return возвращает созданный комментарий.

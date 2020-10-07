@@ -12,9 +12,10 @@ import java.util.List;
 public interface CommentsParseService {
 
     /**
-     * Парсинг комментариев.
+     * Получение страниы с историей из параметра истории,
+     * и парсинг комментариев к ней.
      *
-     * @param story  ?????.
+     * @param story        полученная после парсинга.
      * @param commentLimit лимит на количество комментариев.
      * @return список комментариев после парсинга.
      */

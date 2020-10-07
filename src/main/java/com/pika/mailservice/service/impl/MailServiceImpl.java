@@ -35,11 +35,16 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public void commentsMailDelivery(List<Story> stories, List<Subscriber> subscribers, String subject) {
-
         subscribers.forEach(subscriber -> sendEmail(stories, subscriber, subject));
-
     }
 
+    /**
+     * Создание сообщения для рассылки с созданием html страницы для почты.
+     *
+     * @param stories список историй после парсинга.
+     * @param subscriber подписчик для отправки.
+     * @param subject тема сообщения.
+     */
     @Async
     public void sendEmail(List<Story> stories, Subscriber subscriber, String subject) {
         try {

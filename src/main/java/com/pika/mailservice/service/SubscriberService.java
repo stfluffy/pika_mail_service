@@ -12,40 +12,46 @@ import java.util.List;
 public interface SubscriberService {
 
     /**
+     * Создание новой подписки на рассылку на почту.
      *
-     * @param subscribeDto
+     * @param subscribeDto форма с полями: имя и email.
      */
     Subscriber subscribe(SubscribeDto subscribeDto);
 
     /**
+     * Отписка от рассылки на почту.
      *
-     * @param email
+     * @param email на которой отправляется почта.
      */
     boolean unsubscribe(String email);
 
     /**
+     * Проверка существует ли подписчик с данной почтой.
      *
-     * @param email
-     * @return
+     * @param email для проверки.
+     * @return true если почта существует, false если нет.
      */
     boolean checkEmail(String email);
 
     /**
+     * Список подписчиков с активной подпиской на рассылку.
      *
-     * @return
+     * @return список пользователей.
      */
     List<Subscriber> getActiveSubscribers();
 
     /**
+     * Получение подписчика по id.
      *
-     * @param subscriberId
-     * @return
+     * @param subscriberId идентификатор подписчика.
+     * @return подписчик.
      */
     Subscriber getById(Long subscriberId);
 
     /**
+     * Список всех пользователей.
      *
-     * @return
+     * @return список пользователей.
      */
     List<Subscriber> findAll();
 
