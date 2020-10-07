@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Top comments for you</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet"
+          type="text/css">
+
+    <style>
+        .main.container {
+            margin-top: 7em;
+        }
+        .ui.segment {
+            margin-top: 1em;
+            margin-bottom: 1em;
+        }
+
+        .ui.container {
+            margin-bottom: 1em;
+        }
+    </style>
+</head>
+
+<body>
+<div class="ui main container">
+
+    <div class="ui container">
+        <h2 class="ui center aligned header" th:text="#{mail.page.delivery.header.hello} + ' ' + ${name} + '!'"></h2>
+        <h2 class="ui center aligned header" th:text="#{mail.page.delivery.hello}"></h2>
+    </div>
+
+    <div class="ui container">
+
+        <div class="ui segment" th:each="story : ${stories}">
+
+            <h2 class="ui header"><a th:href="${story?.getLink()}" th:text="${story?.getTitle()}"></a></h2>
+
+            <div th:if="${story?.getComments()?.isEmpty()}">
+                <div class="ui segment">
+                    <p class="ui header" th:text="#{mail.page.error.comments}"></p>
+                </div>
+            </div>
+
+            <div th:if="${!story?.getComments()?.isEmpty()}">
+                <div class="ui segment" th:each="comment : ${story?.getComments()}">
+
+                    <div class="ui top left attached circular labels">
+                        <a class="ui black label" th:href="@{'https://pikabu.ru/@' + ${comment?.getAuthor()}}">
+                            <div th:text="${comment?.getAuthor()}"></div>
+                        </a>
+                        <div class="ui teal label" th:text="${comment?.getRating()}"></div>
+                    </div>
+
+                    <div th:if="${comment?.getText().isEmpty()}">
+                        <p class="ui header" th:text="#{mail.page.error.comment}"></p>
+                    </div>
+
+                    <div th:if="${!comment?.getText().isEmpty()}">
+                        <p th:text="${comment?.getText()}"></p>
+                    </div>
+
+                    <a th:href="${comment.getLink()}" th:text="#{mail.page.link.continue.comment}"></a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui container">
+        <a class="ui black label" th:href="#{mail.page.url.unsubscribe}">
+            <div th:text="#{mail.page.unsubscribe.button}"></div>
+        </a>
+    </div>
+
+
+
+</div>
+</body>
+</html>

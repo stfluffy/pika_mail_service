@@ -1,6 +1,8 @@
 package com.pika.mailservice.service.impl;
 
-import com.pika.mailservice.dto.CommentDto;
+import com.pika.mailservice.model.Comment;
+import com.pika.mailservice.model.Story;
+import com.pika.mailservice.repository.CommentRepository;
 import com.pika.mailservice.service.CommentParseService;
 import com.pika.mailservice.service.GetPageService;
 import lombok.RequiredArgsConstructor;
@@ -29,9 +31,15 @@ public class CommentParseServiceImpl implements CommentParseService {
 
     private final GetPageService pageService;
 
+    private final CommentRepository commentRepository;
+
     @Override
-    public List<CommentDto> parseComments(String url, Integer commentLimit) {
-        Document document = pageService.getDocumentFromUrl(url);
+    public List<Comment> parseComments(Story story, Integer commentLimit) {
+
+        if (Objects.isNull(story)) {
+            return Collections.emptyList();
+        }
+        Document document = pageService.getDocumentFromUrl(story.getLink());
 
         if (Objects.isNull(document)) {
             return Collections.emptyList();
@@ -39,9 +47,13 @@ public class CommentParseServiceImpl implements CommentParseService {
 
         Elements elements = getCommentRatingElements(document);
 
-        List<CommentDto> comments = getComments(elements);
+        List<Comment> comments = getComments(elements, story);
 
-        return sortCommentByRating(comments, commentLimit);
+        return saveToDb(sortCommentByRating(comments, commentLimit));
+    }
+
+    private List<Comment> saveToDb(List<Comment> comments) {
+        return commentRepository.saveAll(comments);
     }
 
     /**
@@ -62,9 +74,9 @@ public class CommentParseServiceImpl implements CommentParseService {
      * @param elements отсортированные элементы через метод {@link CommentParseServiceImpl#getCommentRatingElements}.
      * @return список комментариев конвертированных в CommentDto.
      */
-    private List<CommentDto> getComments(Elements elements) {
+    private List<Comment> getComments(Elements elements, Story story) {
         return elements.stream()
-                .map(this::parseComment)
+                .map(element -> parseComment(element, story))
                 .collect(Collectors.toList());
     }
 
@@ -75,9 +87,9 @@ public class CommentParseServiceImpl implements CommentParseService {
      * @param commentLimit лимит на количество комментариев, после сортировки.
      * @return список сортированных комментариев
      */
-    private List<CommentDto> sortCommentByRating(List<CommentDto> comments, Integer commentLimit) {
+    private List<Comment> sortCommentByRating(List<Comment> comments, Integer commentLimit) {
         return comments.stream()
-                .sorted(Comparator.comparingInt(CommentDto::getRating).reversed())
+                .sorted(Comparator.comparingInt(Comment::getRating).reversed())
                 .limit(commentLimit)
                 .collect(Collectors.toList());
     }
@@ -88,8 +100,8 @@ public class CommentParseServiceImpl implements CommentParseService {
      * @param element отсортированный элемент через метод {@link CommentParseServiceImpl#getCommentRatingElements}.
      * @return возвращает созданный комментарий.
      */
-    private CommentDto parseComment(Element element) {
-        CommentDto comment = new CommentDto();
+    private Comment parseComment(Element element, Story story) {
+        Comment comment = new Comment();
 
         if (NumberUtils.isCreatable(element.text())) {
             comment.setRating(Integer.parseInt(element.text()));
@@ -103,13 +115,16 @@ public class CommentParseServiceImpl implements CommentParseService {
 
         comment.setLink(element.parent()
                 .select(".comment__tool")
-                .select("[aria-label=Ссылка на комментарий]")
+                .select("[data-role=link]")
                 .attr("href"));
 
         comment.setText(element.parent().parent().select(".comment__content").text());
 
-        comment.setZonedDateTime(ZonedDateTime.now());
+        comment.setParseDate(ZonedDateTime.now());
+
+        comment.setStory(story);
 
         return comment;
     }
+
 }

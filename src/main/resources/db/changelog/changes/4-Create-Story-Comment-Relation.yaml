@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2020-10-06-04
+      comment:  Create Story Comment Relation
+      author: Modenov Danil
+      changes:
+        - addForeignKeyConstraint:
+            constraintName: fk_story_comment
+            baseTableName: comment
+            baseColumnNames: story_id
+            referencedTableName: story
+            referencedColumnNames: id
+            onDelete: 'CASCADE'
+            onUpdate: 'CASCADE'

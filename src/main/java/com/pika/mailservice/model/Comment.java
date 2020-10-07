@@ -19,7 +19,7 @@ import java.time.ZonedDateTime;
  */
 
 @Entity
-@Table(name = "сomment")
+@Table(name = "comment")
 @Data
 public class Comment {
 
@@ -67,6 +67,7 @@ public class Comment {
     /**
      * Время парсинга комментария.
      */
-    @Column(name = "date_time")
-    private ZonedDateTime zonedDateTime;
+    @Column(name = "parse_date")
+    private ZonedDateTime parseDate;
+
 }
