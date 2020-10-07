@@ -24,9 +24,9 @@ public class SubscriberServiceImpl implements SubscriberService {
     private final SubscriberRepository subscriberRepository;
 
     @Override
-    public void subscribeToEmail(SubscribeDto subscribeDto) {
+    public Subscriber subscribe(SubscribeDto subscribeDto) {
         if (Objects.isNull(subscribeDto)) {
-            return;
+            return null;
         }
 
         Subscriber subscriber = new Subscriber();
@@ -34,20 +34,21 @@ public class SubscriberServiceImpl implements SubscriberService {
         subscriber.setEmail(subscribeDto.getEmail());
         subscriber.setSubscriptionDate(ZonedDateTime.now());
         subscriber.setActive(Boolean.TRUE);
-        subscriberRepository.save(subscriber);
 
+        return subscriberRepository.save(subscriber);
     }
 
     @Override
-    public void unsubscribe(String email) {
+    public boolean unsubscribe(String email) {
         Subscriber getFromDb = subscriberRepository.findByEmail(email);
 
         if (Objects.isNull(getFromDb)) {
-            return;
+            return false;
         }
 
         getFromDb.setActive(Boolean.FALSE);
         subscriberRepository.save(getFromDb);
+        return true;
     }
 
     @Override
@@ -58,5 +59,15 @@ public class SubscriberServiceImpl implements SubscriberService {
     @Override
     public List<Subscriber> getActiveSubscribers() {
         return subscriberRepository.findByActive(Boolean.TRUE);
+    }
+
+    @Override
+    public Subscriber getById(Long subscriberId) {
+        return subscriberRepository.findById(subscriberId).orElse(null);
+    }
+
+    @Override
+    public List<Subscriber> findAll() {
+        return subscriberRepository.findAll();
     }
 }

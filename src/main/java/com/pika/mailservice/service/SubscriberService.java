@@ -15,13 +15,13 @@ public interface SubscriberService {
      *
      * @param subscribeDto
      */
-    void subscribeToEmail(SubscribeDto subscribeDto);
+    Subscriber subscribe(SubscribeDto subscribeDto);
 
     /**
      *
      * @param email
      */
-    void unsubscribe(String email);
+    boolean unsubscribe(String email);
 
     /**
      *
@@ -35,5 +35,19 @@ public interface SubscriberService {
      * @return
      */
     List<Subscriber> getActiveSubscribers();
+
+    /**
+     *
+     * @param subscriberId
+     * @return
+     */
+    Subscriber getById(Long subscriberId);
+
+    /**
+     *
+     * @return
+     */
+    List<Subscriber> findAll();
+
 
 }
